@@ -19,7 +19,7 @@ struct MultipleThreadTask
 	int **A, **B, **C;
 	int start;
 	int end;
-    int power;
+    	int power;
 };
 
 
@@ -96,12 +96,12 @@ int main(void)
         task->power = power;
         task->start = (power/NUM_THREADS)*i;
         task->end = (i+1) == NUM_THREADS ? power : ((power/NUM_THREADS)*(i + 1));
-		pthread_create(&threads[i], NULL, matrixmultiplication, (void*)MultipleThreadTask);
+		pthread_create(&threads[i], NULL, matrixmultiplication, (void*)task);
 	}
 
 	for (size_t i = 0; i < NUM_THREADS; i++)
 	{
-		(void)pthread_join(threads[i], NULL);
+		pthread_join(threads[i], NULL);
 	}
 
 	auto stopTime = high_resolution_clock::now();
